@@ -712,9 +712,9 @@ public:
         r.m_key = d.m_val;
         r.m_val = {};
         r.m_type = d.m_type;
-        static_assert((_VALMASK >> 1u) == _KEYMASK, "required for this function to work");
-        static_assert((VAL_STYLE >> 1u) == KEY_STYLE, "required for this function to work");
-        r.m_type.type = ((d.m_type.type & (_VALMASK|VAL_STYLE)) >> 1u);
+        static_assert((static_cast<type_bits>(_VALMASK) >> 1u) == _KEYMASK, "required for this function to work");
+        static_assert((static_cast<type_bits>(VAL_STYLE) >> 1u) == KEY_STYLE, "required for this function to work");
+        r.m_type.type = static_cast<NodeType_e>(static_cast<type_bits>(d.m_type.type & (_VALMASK|VAL_STYLE)) >> 1u);
         r.m_type.type = (r.m_type.type & ~(_VALMASK|VAL_STYLE));
         r.m_type.type = (r.m_type.type | KEY);
         return r;
